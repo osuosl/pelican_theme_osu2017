@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html class="doug_fir" lang="en">
+<head>
+{% include 'includes/head.html' %}
+</head>
+<body class="html front not-logged-in one-sidebar sidebar-first page-node " >
+{% include 'includes/top-hat.html' %}
+{% include 'includes/menu.html' %}
+<div id="skip-link">
+    <a href="#content" class="element-invisible element-focusable">Skip to main content</a>
+</div>
+<div class='row'>
+    {% if DISABLE_SIDEBAR %}
+        <div class='row span9 nosidebar'>
+            {% block content %}
+            {% endblock content %}
+        </div>
+    {% else %}
+        <div class='row span9'>
+            {{ self.content() }}
+        </div>
+        {% include ('includes/blog-sidebar.html' if articles_page or article else 'includes/people-sidebar.html' if people else 'includes/sidebar.html') %}
+    {% endif %}
+</div>
+</div>
+    {% include 'includes/footer.html'%}
+    {% include 'includes/scripts.html' %}
+    <script>
+    $(document).ready(function(){
+      $('.front-page-story, .responsive').slick({
+        dots: false,  /* So that "dots" are hidden beneath the slideshow */
+        autoplay: true,
+        autoplaySpeed: 5000,
+        ease: true,
+        prevArrow: $('#prev'),
+        nextArrow: $('#next'),
+        responsive: [
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: "unslick"
+          }
+          // You can unslick at a given breakpoint now by adding:
+          // settings: "unslick"
+          // instead of a settings object
+        ]
+      });
+    });
+
+    </script>
+    <script>
+    $(document).ready(function(){
+      $('#mobile-menu').css("display", "none");
+    });
+    </script>
+
+</body>
+</html>

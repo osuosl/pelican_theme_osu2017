@@ -1,0 +1,55 @@
+<div id='footer'>
+  <div class='container'>
+    <div class='row'>
+      <div class='span2 contact'>
+        {% if IS_OSL %}
+          <h3>Contact Info</h3>
+        {% endif %}
+        <div class="content">
+          <p>
+            {% if IS_OSL %}
+              {{ SITENAME }}<br />
+              {{ BUILDING }}<br />
+              {{ STREET_ADDRESS }}<br />
+              {{ CITY_ZIP }}<br />
+              {% for e in EMAIL %}
+              <span style="color: #C34500;"><a href="mailto:{{ e.address }}">{{ e.address }}</a></span><br />
+              {% endfor %}
+              Phone: {{ PHONE_NUM }}
+              <p><a href="{{ SITELOG_URL }}"><img src="{{ SITEURL }}/images/{{ SITELOGO }}" /></a></p>
+            {% endif %}
+          </p>
+        </div>
+        <a href="http://oregonstate.edu/copyright">Copyright</a>
+        &copy;2016 Oregon State University<br />
+        <a href="http://oregonstate.edu/disclaimer">Disclaimer</a>
+        </div
+        <!-- Read the Pelican page list and create menu structure -->
+        {% set ptest = pages | menu_filter(DIRECT_TEMPLATE_INFO) %}
+        <div class='span10'>
+          <div class="region region-footer">
+            <div id="block-menu-menu-footer-menu" class="block block-menu">
+              <div class="content">
+                <ul class="menu">
+                  <li class="first leaf"><a href="/" title="Go to homepage" class="active">Home</a></li>
+                  {% for page in ptest %}
+                  {% if page['children'] %}
+                  <li class="expanded"><a href={{ page['link'] }}>{{ page['name'] }}</a>
+                    <ul>
+                      {% for child in page['children'] %}
+                      <li class='leaf'><a href={{ child['link'] }}>{{ child['name'] }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% else %}
+                  <li class='leaf'><a href={{ page['link'] }}>{{ page['name'] }}</a></li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

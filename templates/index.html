@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% set first_article = articles[0] %}
+  <div class="mobile-title"><h3><a href="{{ first_article.url }}">{{ first_article.title }}</a></h3></div>
+<div id="features">
+    <div class='region region-features'>
+      <div class="mobile-content">
+        <img class='summary-image' alt="" src="{{ SITEURL }}/images/{{ first_article.img }} "></img>
+      </div>
+
+        <div id="block-views-feature-story-block" class="block block-views">
+            <div class="content">
+                <div class="view view-feature-story view-id-feature_story view-display-id-block">
+                    <div class='view-content front-page-story'>
+                        {% for article in articles if FEATURED in article.tag %}
+                            {% if loop.index <= SLIDESHOW_LIMIT %}
+                                <div class='fs-row'>
+                                    <a href="{{ article.url }}">
+                                        <img class='summary-image' alt="" src="{{ SITEURL }}/images/{{ article.img }} "></img>
+                                    </a>
+                                    <div class="views-field-field-caption">
+                                        <h3 class="fs-title">
+                                            <a href="{{ article.url }}">
+                                                {{ article.title }}
+                                            </a>
+                                        </h3>
+                                        <p class="fs-caption">
+                                        {% set summary = article.content | truncate(400) %}
+                                        {% set summary = summary | close_html_tags %}
+                                        {{ summary }}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <a id='prev' class="side-controls previous slick-prev">
+                        <span class='icon-chevron-left'>&#8249;</span>
+                    </a>
+                    <a id='next' class="side-controls next slick-next">
+                        <span class='icon-chevron-left'>&#8250;</span>
+                    </a>
+                    <div class='more-link'>
+                        <a href={{ STORIES }}>
+                            All stories
+                        </a>
+                    </div>
+                </div>
+                <!-- <div class="mobile-content">
+                  <img class='summary-image' alt="" src="{{ SITEURL }}/images/{{ first_article.img }} "></img>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if CASS_HOME_EXTRAS %}
+    {% for page in pages %} 
+        {% if page.tag == FRONTPAGE %}
+            {{ page.content }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if OSL_HOME_EXTRAS %}
+    {% for page in pages %} 
+        {% if page.tag == FRONTPAGE %}
+            {{ page.content }}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+{% endblock %}
